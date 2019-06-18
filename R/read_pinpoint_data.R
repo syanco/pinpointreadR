@@ -1,8 +1,3 @@
-#birdID, band, start, and stop should all be fed in as strings
-#start and stop should follow: "y/m/d h:m:s"
-#start should be 90 minues after tag is affixed,
-#stop is time the capture recovery attempt begins (e.g. net up)
-
 #' readPinpoint
 #'
 #' @param file String, filename to read in.
@@ -16,10 +11,9 @@
 #' "y/m/d h:m:s"
 #' @param breedyear String, optional year of data to associate with records
 #'
-#' @return
+#' @return Data.frame of pinpoint data\
 #' @export
 #'
-#' @examples
 readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
                          start, stop, breedyear = NULL) {
   if(reader::get.delim(file) == ","){
