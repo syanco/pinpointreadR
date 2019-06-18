@@ -3,7 +3,25 @@
 #start should be 90 minues after tag is affixed,
 #stop is time the capture recovery attempt begins (e.g. net up)
 
-readPinpoint <- function(file, birdID, band, database = NULL, start, stop, breedyear) {
+#' readPinpoint
+#'
+#' @param file String, filename to read in.
+#' @param birdID String, optional ID of bird to associate with records
+#' @param band String, optional band number of bird to associate with records
+#' @param database Optional, object name of existing database to append with
+#' read in data.
+#' @param start String, starting date/time of tracking data to retain.  Format:
+#' "y/m/d h:m:s"
+#' @param stop String, ending date/time of tracking data to retain.  Format:
+#' "y/m/d h:m:s"
+#' @param breedyear String, optional year of data to associate with records
+#'
+#' @return
+#' @export
+#'
+#' @examples
+readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
+                         start, stop, breedyear = NULL) {
   if(reader::get.delim(file) == ","){
     data <- read.csv(file, stringsAsFactors = F)
   } else {
