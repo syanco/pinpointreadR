@@ -66,6 +66,9 @@ readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
   if("time" %in% colnames(data) & "date"  %notin% colnames(data)){
     data$t_ <- lubridate::ymd_hms(data$time)
   }
+  if("GMT.Time" %in% colnames(data)){
+    data$t_ <- lubridate::mdy_hm(data$GMT.Time)
+  }
   #remove points pre and post deployment
   data <- dplyr::filter(data, t_ > lubridate::ymd_hms(start) &
                           t_ < lubridate::ymd_hms(stop))
@@ -78,3 +81,11 @@ readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
   #return full and cleaned dataset
   return(data)
 }
+
+test <- readPinpoint(
+  "C:/Users/syanc/Google Drive/flow_annual_biogeog_model/mopl_gps/PinPoint 40346 2016-06-15 18-30-20.csv",
+  birdID = "6", start = "15/1/1 00:00:01", stop = "19/10/31 00:00:01",
+  band = "1736", breedyear = 2017)
+
+d <- read.csv("C:/Users/syanc/Google Drive/flow_annual_biogeog_model/mopl_gps/PinPoint 40346 2016-06-15 18-30-20.csv")
+
