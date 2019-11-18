@@ -16,7 +16,7 @@
 #'
 readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
                          start, stop, breedyear = NULL) {
-  %notin% <- Negate(%in%)
+  '%notin%' <- Negate('%in%')
   if(reader::get.delim(file) == ","){
     data <- read.csv(file, stringsAsFactors = F)
   } else {
