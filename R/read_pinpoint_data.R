@@ -16,6 +16,7 @@
 #'
 readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
                          start, stop, breedyear = NULL) {
+  %notin% <- Negate(%in%)
   if(reader::get.delim(file) == ","){
     data <- read.csv(file, stringsAsFactors = F)
   } else {
@@ -61,6 +62,9 @@ readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
     data$t_ <- lubridate::ymd_hms(paste0(as.character(data$date),
                                          " ", as.character(data$time)),
                                   tz="UTC")
+  }
+  if("time" %in% colnames(data) & "date"  %notin% colnames(data)){
+    data$t_ <- lubridate::ymd_hms(data$time)
   }
   #remove points pre and post deployment
   data <- dplyr::filter(data, t_ > lubridate::ymd_hms(start) &
