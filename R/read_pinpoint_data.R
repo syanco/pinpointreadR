@@ -93,8 +93,3 @@ readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
   return(data)
 }
 
-
-mopl_tracks <- readPinpoint(
-  file = "C:/Users/syanc/Google Drive/flow_annual_biogeog_model/mopl_gps/PinPoint 40346 2016-06-15 18-30-20.csv",
-  birdID = "8", start = "15/1/1 00:00:01", stop = "19/10/31 00:00:01",
-  band = "40346", breedyear = 2015, database = mopl_tracks, rowskip = T)
