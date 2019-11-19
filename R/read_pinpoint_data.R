@@ -20,7 +20,7 @@ readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
   '%notin%' <- Negate('%in%')
   if(reader::get.delim(file) == ","){
     if(rowskip == T) {
-      data <- read.csv(file, stringsAsFactors = F, skip = 3)
+      data <- read.csv(file, stringsAsFactors = F, skip = 8)
     } else {
       data <- read.csv(file, stringsAsFactors = F)
       }
@@ -72,7 +72,7 @@ readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
     data$t_ <- lubridate::ymd_hms(data$time)
   }
   if("GMT.Time" %in% colnames(data)){
-    data$t_ <- lubridate::mdy_hm(data$GMT.Time)
+    data$t_ <- lubridate::mdy_hms(data$GMT.Time)
   }
   #remove points pre and post deployment
   if(!is.null(start) & !is.null(stop)) {
