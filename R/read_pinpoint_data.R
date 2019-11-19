@@ -20,7 +20,7 @@ readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
   '%notin%' <- Negate('%in%')
   if(reader::get.delim(file) == ","){
     if(rowskip == T) {
-      data <- read.csv(file, stringsAsFactors = F, skip = 3)
+      data <- read.csv(file, stringsAsFactors = F, skip = 8)
     } else {
       data <- read.csv(file, stringsAsFactors = F)
       }
