@@ -23,14 +23,19 @@ readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
       data <- read.csv(file, stringsAsFactors = F, skip = 8)
     } else {
       data <- read.csv(file, stringsAsFactors = F)
-      }
-    } else {
+    }
+  } else {
+    if(reader::get.delim(file) == "\t") {
+      data <- read.table(file, sep = "\t", header = T)
+    }else{
       if(rowskip == T) {
         data <- read.csv(file, stringsAsFactors = F, skip = 3)
       }else {
         data <- readr::read_table(file)
       }
-      }
+    }
+
+  }
 
   #add bird ID
   data$bird_id <- rep(as.character(birdID), nrow(data))
@@ -40,7 +45,7 @@ readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
   data$breedyr <- breedyear
   if("Temperature(C)" %in% colnames(data)) {
     data <- dplyr::select(data, -c('Temperature(C)'))
-    }
+  }
 
   #add date/time stamps column
   #check which data column names were used
@@ -82,7 +87,7 @@ readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
   if(!is.null(start) & !is.null(stop)) {
     data <- dplyr::filter(data, t_ > lubridate::ymd_hms(start) &
                             t_ < lubridate::ymd_hms(stop))
-    }
+  }
 
   #if not the first file loaded, add to the running database
   if(!is.null(database)){
