@@ -26,7 +26,7 @@ readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
     }
   } else {
     if(reader::get.delim(file) == "\t") {
-      data <- read.table(file, sep = "\t", header = T)
+      data <- readr::read_table2(file)
     }else{
       if(rowskip == T) {
         data <- read.csv(file, stringsAsFactors = F, skip = 3)
