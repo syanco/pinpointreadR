@@ -95,7 +95,7 @@ readPinpoint <- function(file, birdID = NA, band = NA, database = NULL,
 
   #modify column classed for compatibility
   data <- data %>%
-    mutate_if(hms::is.hms, as.character)
+    mutate_all(as.character)
 
   #if not the first file loaded, add to the running database
   if(!is.null(database)){
