@@ -97,6 +97,9 @@ readPinpoint <- function(file, birdID = NA, band = NA, database = NULL,
     data <- dplyr::bind_rows(database, data)
   }
 
+  #modify column classed for compatibility
+  data$`FIX-time` <- as.character(data$`FIX-time`)
+
   #return full and cleaned dataset
   return(data)
 }
