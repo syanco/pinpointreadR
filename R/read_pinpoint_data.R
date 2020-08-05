@@ -92,13 +92,16 @@ readPinpoint <- function(file, birdID = NA, band = NA, database = NULL,
                             t_ < lubridate::ymd_hms(stop))
   }
 
+
+  #modify column classed for compatibility
+  data <- data %>%
+    mutate_if(hms::is.hms, as.character)
+
   #if not the first file loaded, add to the running database
   if(!is.null(database)){
     data <- dplyr::bind_rows(database, data)
   }
 
-  #modify column classed for compatibility
-  data$`FIX-time` <- as.character(data$`FIX-time`)
 
   #return full and cleaned dataset
   return(data)
