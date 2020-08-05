@@ -14,8 +14,8 @@
 #' @return Data.frame of pinpoint data\
 #' @export
 #'
-readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
-                         start = NULL, stop = NULL, breedyear = NULL,
+readPinpoint <- function(file, birdID = NA, band = NA, database = NULL,
+                         start = NULL, stop = NULL, breedyear = NA,
                          rowskip = F) {
   '%notin%' <- Negate('%in%')
   if(reader::get.delim(file) == ","){
@@ -77,12 +77,15 @@ readPinpoint <- function(file, birdID = NULL, band = NULL, database = NULL,
                                          " ", as.character(data$time)),
                                   tz="UTC")
   }
+
   if("time" %in% colnames(data) & "date"  %notin% colnames(data)){
     data$t_ <- lubridate::ymd_hms(data$time)
   }
+
   if("GMT.Time" %in% colnames(data)){
     data$t_ <- lubridate::mdy_hms(data$GMT.Time)
   }
+
   #remove points pre and post deployment
   if(!is.null(start) & !is.null(stop)) {
     data <- dplyr::filter(data, t_ > lubridate::ymd_hms(start) &
